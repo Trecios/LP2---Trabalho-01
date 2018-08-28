@@ -46,41 +46,44 @@ public class BallDemo
         myCanvas.drawLine(xStart, ground, xLimit, ground);
 
         // crate and show the balls
-        ArrayList<BouncingBall> bolas = new ArrayList<BouncingBall>();
-        Color[] array = {Color.blue, Color.red, Color.pink, Color.white, Color.gray, Color.green};
-        Random random = new Random();
-        for(int i = 0; i < balls; i++)
+        if(balls > 0)
         {
-            int randColor = random.nextInt(6);
-            int randX = random.nextInt(size.width);
-            int randY = random.nextInt(size.height/2);
-            bolas.add(new BouncingBall(randX, randY, 16, array[randColor] , ground, myCanvas));
-        }
-
-        // Make them bounce until both have gone beyond the xLimit.
-        boolean finished = false;
-        while(!finished) 
-        {
-            myCanvas.wait(50);           // small delay
-            Iterator<BouncingBall> it = bolas.iterator();
-            while(it.hasNext())
+            ArrayList<BouncingBall> bolas = new ArrayList<BouncingBall>();
+            Color[] array = {Color.blue, Color.red, Color.pink, Color.white, Color.gray, Color.green};
+            Random random = new Random();
+            for(int i = 0; i < balls; i++)
             {
-                BouncingBall ball = it.next();
-                ball.move();      
-                // stop once ball has travelled a certain distance on x axis
-                if(ball.getXPosition() >= size.width - 36)
+                int randColor = random.nextInt(6);
+                int randX = random.nextInt(size.width);
+                int randY = random.nextInt(size.height/2);
+                bolas.add(new BouncingBall(randX, randY, 16, array[randColor] , ground, myCanvas));
+            }
+
+            // Make them bounce until both have gone beyond the xLimit.
+            boolean finished = false;
+            while(!finished) 
+            {
+                myCanvas.wait(50);           // small delay
+                Iterator<BouncingBall> it = bolas.iterator();
+                while(it.hasNext())
                 {
-                    ball.erase();
-                    it.remove();
-                    if(it.hasNext())
+                    BouncingBall ball = it.next();
+                    ball.move();      
+                    // stop once ball has travelled a certain distance on x axis
+                    if(ball.getXPosition() >= size.width - 36)
                     {
-                        ball = it.next();
+                        ball.erase();
+                        it.remove();
+                        if(it.hasNext())
+                        {
+                            ball = it.next();
+                        }
                     }
                 }
-            }
-            if(bolas.size() == 0)
-            {
-                finished = true;
+                if(bolas.size() == 0)
+                {
+                    finished = true;
+                }
             }
         }
     }
@@ -96,10 +99,10 @@ public class BallDemo
         int DimX = 20;
         int DimY = 20;
         // Creates Dimension object to save the size of the canvas
-        myCanvas.setForegroundColor(Color.yellow);
+        myCanvas.setForegroundColor(Color.black);
         //Creates the frame
         Rectangle frame = new Rectangle(DimX, DimY, size.width - (2*DimX), size.height - (2*DimY));
         // Draws the frame
-        myCanvas.fill(frame);
+        myCanvas.draw(frame);
     }
 }

@@ -85,6 +85,10 @@ public class BallDemo
                     finished = true;
                 }
             }
+            else
+            {
+                System.out.println("Número de bolas nulo ou negativo!")
+            }
         }
     }
     /**
